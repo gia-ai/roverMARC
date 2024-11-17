@@ -41,8 +41,13 @@ typedef struct s_tree
 
 void possibilite_case (s_node* arbre ) {
     if (abre.orientation==NORTH){
-        arbre->avance10=creer_noeud(arbre.x
-        
-        
+        if 
+            arbre->avance10=creer_noeud(arbre.x
+        }
+    if (abre.orientation==SOUTH){}
+
+    if (abre.orientation==EAST){}
+
+    if (abre.orientation==WEST){}
     
 }
