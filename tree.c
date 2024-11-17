@@ -13,7 +13,7 @@
 
 #include "loc.h"
 
-t_node* Creat_node(int x,int y,int orientation) {
+t_node* create_node(int x,int y,int orientation) {
     t_node* node = (t_node*)malloc(sizeof(t_node));
     if (!node) {
         printf("Memory allocation error\n");
@@ -35,13 +35,27 @@ t_node* Creat_node(int x,int y,int orientation) {
 
 
 void possibilite_case (s_node* arbre ) {
+    int temp=0;
     if (abre.orientation==NORTH){
-        if
-            arbre->avance10=creer_noeud(arbre.x
+        if (is_valid_loc(arbre.x,arbre.y-1){
+            arbre->avance10=create_node(arbre.x,arbre.y-1,arbre.orientation);
         }
+        if (is_valid_loc(arbre.x,arbre.y-2){
+            arbre->avance10=create_node(arbre.x,arbre.y-2,arbre.orientation);
+        }
+        if (is_valid_loc(arbre.x,arbre.y-3){
+            arbre->avance10=create_node(arbre.x,arbre.y-3,arbre.orientation);
+        }
+        if (is_valid_loc(arbre.x,arbre.y+1){
+            arbre->avance10=create_node(arbre.x,arbre.y+1,arbre.orientation);
+        }
+        arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation-1%4);
+        arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation+1%4);
+        arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation+2%4);
+        
+    }
     if (abre.orientation==SOUTH){}
 
-#include "moves.h"
     if (abre.orientation==EAST){}
 
     if (abre.orientation==WEST){}
