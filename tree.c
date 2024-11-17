@@ -4,50 +4,46 @@
 
 #include "tree.h"
 
-#include "mooves.h"
+#include "moves.h"
 #include "tree.h"
 
-/**
-typedef struct s_node
-{
-    struct s_node *left ;
-    T value ; // T est un type quelconque : int, float ou autre.
-    struct s_node *right ;
-} t_node;
 
-typedef struct s_tree
-{
-    t_node *root ;
-} t_tree ;
+#include <stdio.h>
+#include <stdlib.h>
 
-p_node createNode(int val)
-{
-    p_node nouv;
+#include "loc.h"
 
-    nouv = (p_node)malloc(sizeof(t_node));
-    nouv->value = val;
-    nouv->left = nouv->right = NULL;
-
-    return nouv;
+t_node* Creat_node(int x,int y,int orientation) {
+    t_node* node = (t_node*)malloc(sizeof(t_node));
+    if (!node) {
+        printf("Memory allocation error\n");
+        return NULL;
+    }
+    node->x = 0;
+    node->y = 0;
+    node->orientation = SOUTH;
+    node->avance10 = NULL;
+    node->avance20 = NULL;
+    node->avance30 = NULL;
+    node->demitour = NULL;
+    node->recule10 = NULL;
+    node->tourned = NULL;
+    node->tourneg = NULL;
+    return node;
 }
-
-typedef struct s_tree
-{
-    p_node root;
-} t_tree, *p_tree;
- **/
 
 
 
 void possibilite_case (s_node* arbre ) {
     if (abre.orientation==NORTH){
-        if 
+        if
             arbre->avance10=creer_noeud(arbre.x
         }
     if (abre.orientation==SOUTH){}
 
+#include "moves.h"
     if (abre.orientation==EAST){}
 
     if (abre.orientation==WEST){}
-    
+
 }
