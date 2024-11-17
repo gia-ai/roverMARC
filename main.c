@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include "map.h"
+#include "loc.h"
+#include "moves.h"
+#include "tree.h"
+
 
 int main() {
     t_map map = createMapFromFile("..\\maps\\example1.map");
@@ -22,5 +26,9 @@ int main() {
         printf("\n");
     }
     displayMap(map);
+
+    t_localisation machine = loc_init(1,1,NORTH);
+
+
     return 0;
 }

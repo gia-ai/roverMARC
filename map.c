@@ -6,8 +6,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "map.h"
-#include "loc.h"
 #include "queue.h"
+
 
 /* prototypes of local functions */
 /* local functions are used only in this file, as helper functions */
