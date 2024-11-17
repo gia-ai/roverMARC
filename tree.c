@@ -36,19 +36,7 @@ typedef struct s_tree
     p_node root;
 } t_tree, *p_tree;
  **/
-typedef struct node
-{
-    int x;
-    int y;
-    int orientation;
-    struct node *avance10;
-    struct node *avance20;
-    struct node *avance30;
-    struct node *recule10;
-    struct node *tourneg;
-    struct node *tourned
-    struct node *demitour;
-} node ;
+
 
 
 void possibilite_case (x,y,orientation) {
