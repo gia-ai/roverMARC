@@ -27,9 +27,3 @@ t_node* Creat_node(int x,int y,int orientation) {
 }
 
 #include "moves.h"
-
-
-
-void possibilite_case (x,y,orientation) {
-    s_node arbre = creer_arbre();
-}
