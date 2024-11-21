@@ -53,62 +53,62 @@ void add_node_to_tree(t_node* node,int x,int y, t_orientation orientation, int m
 /*
 void possibilite_case (s_node* arbre ) {
     int temp=0;
-    if (abre.orientation==NORTH){//orientation nord
-        if (is_valid_loc(arbre.x,arbre.y-1){
+    if (arbre.orientation==NORTH){//orientation nord
+        if (is_valid_loc(arbre.x,arbre.y-1)){
             arbre->avance10=create_node(arbre.x,arbre.y-1,arbre.orientation);//avance de 10
         }
-        if (is_valid_loc(arbre.x,arbre.y-2){
+        if (is_valid_loc(arbre.x,arbre.y-2)){
             arbre->avance10=create_node(arbre.x,arbre.y-2,arbre.orientation);//avance de 20
         }
-        if (is_valid_loc(arbre.x,arbre.y-3){
+        if (is_valid_loc(arbre.x,arbre.y-3)){
             arbre->avance10=create_node(arbre.x,arbre.y-3,arbre.orientation);//avance de 30
         }
-        if (is_valid_loc(arbre.x,arbre.y+1){
+        if (is_valid_loc(arbre.x,arbre.y+1)){
             arbre->avance10=create_node(arbre.x,arbre.y+1,arbre.orientation);//recule de 10
         }
     }
-    if (abre.orientation==SOUTH){//orientation sud 
-        if (is_valid_loc(arbre.x,arbre.y+1){
+    if (arbre.orientation==SOUTH){//orientation sud 
+        if (is_valid_loc(arbre.x,arbre.y+1)){
             arbre->avance10=create_node(arbre.x,arbre.y+1,arbre.orientation);//avance de 10
         }
-        if (is_valid_loc(arbre.x,arbre.y+2){
+        if (is_valid_loc(arbre.x,arbre.y+2)){
             arbre->avance10=create_node(arbre.x,arbre.y+2,arbre.orientation);//avance de 20
         }
-        if (is_valid_loc(arbre.x,arbre.y+3){
+        if (is_valid_loc(arbre.x,arbre.y+3)){
             arbre->avance10=create_node(arbre.x,arbre.y+3,arbre.orientation);//avance de 30
         }
-        if (is_valid_loc(arbre.x,arbre.y-1){
+        if (is_valid_loc(arbre.x,arbre.y-1)){
             arbre->avance10=create_node(arbre.x,arbre.y-1,arbre.orientation);//recule de 10
         }
         
     }
-    if (abre.orientation==EAST){//orientation est
-        if (is_valid_loc(arbre.x+1,arbre.y){
+    if (arbre.orientation==EAST){//orientation est
+        if (is_valid_loc(arbre.x+1,arbre.y)){
             arbre->avance10=create_node(arbre.x+1,arbre.y,arbre.orientation);//avance de 10
         }
-        if (is_valid_loc(arbre.x+2,arbre.y){
+        if (is_valid_loc(arbre.x+2,arbre.y)){
             arbre->avance10=create_node(arbre.x+2,arbre.y,arbre.orientation);//avance de 20
         }
-        if (is_valid_loc(arbre.x+3,arbre.y){
+        if (is_valid_loc(arbre.x+3,arbre.y)){
             arbre->avance10=create_node(arbre.x+3,arbre.y,arbre.orientation);//avance de 30
         }
-        if (is_valid_loc(arbre.x-1,arbre.y){
+        if (is_valid_loc(arbre.x-1,arbre.y)){
             arbre->avance10=create_node(arbre.x-1,arbre.y,arbre.orientation);//recule de 10
         }
         
     }
 
-    if (abre.orientation==WEST){//orientation ouest
-        if (is_valid_loc(arbre.x-1,arbre.y){
+    if (arbre.orientation==WEST){//orientation ouest
+        if (is_valid_loc(arbre.x-1,arbre.y)){
             arbre->avance10=create_node(arbre.x-1,arbre.y,arbre.orientation);//avance de 10
         }
-        if (is_valid_loc(arbre.x-2,arbre.y){
+        if (is_valid_loc(arbre.x-2,arbre.y)){
             arbre->avance10=create_node(arbre.x-2,arbre.y,arbre.orientation);//avance de 20
         }
-        if (is_valid_loc(arbre.x-3,arbre.y){
+        if (is_valid_loc(arbre.x-3,arbre.y)){
             arbre->avance10=create_node(arbre.x-3,arbre.y,arbre.orientation);//avance de 30
         }
-        if (is_valid_loc(arbre.x+1,arbre.y){
+        if (is_valid_loc(arbre.x+1,arbre.y)){
             arbre->avance10=create_node(arbre.x+1,arbre.y,arbre.orientation);//recule de 10
         }
         
