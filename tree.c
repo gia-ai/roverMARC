@@ -5,35 +5,52 @@
 #include "tree.h"
 
 #include "moves.h"
-#include "tree.h"
 
 
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "loc.h"
 
-t_node* create_node(int x,int y,int orientation) {
-    t_node* node = (t_node*)malloc(sizeof(t_node));
+t_node* create_node(int x,int y,t_orientation orientation) {
+    t_node *node = (t_node*)malloc(sizeof(t_node));
+    int i;
     if (!node) {
         printf("Memory allocation error\n");
         return NULL;
     }
-    node->x = 0;
-    node->y = 0;
-    node->orientation = SOUTH;
-    node->avance10 = NULL;
-    node->avance20 = NULL;
-    node->avance30 = NULL;
-    node->demitour = NULL;
-    node->recule10 = NULL;
-    node->tourned = NULL;
-    node->tourneg = NULL;
+    node->local = loc_init(x,y, orientation);
+    node->nb_enfant = 0;
+    for (i = 0; i < 8; i++) {
+        node->enfant[i] = NULL;
+    }
+    node->parent = NULL;
     return node;
 }
 
+t_tree* create_tree( int x , int y, t_orientation orientation) {
+    t_tree *tree = (t_tree*)malloc(sizeof(t_tree));
+    if (!tree) {
+        printf("Memory allocation error\n");
+        return NULL;
+    }
+    tree->root = create_node(x, y, orientation);
+    return tree;
+}
 
+void add_node_to_tree(t_node* node,int x,int y, t_orientation orientation, int mouvement) {
+    t_node *new_node = create_node(x, y, orientation);
+    if (!new_node) {
+        printf("Memory allocation error\n");
+        return;
+    }
+    if (mouvement > -1 && mouvement < 9) {
+        node->enfant[mouvement] = new_node;
+    }
+    new_node->local = loc_init(x, y, orientation);
+    new_node->parent = node;
+}
 
+/*
 void possibilite_case (s_node* arbre ) {
     int temp=0;
     if (abre.orientation==NORTH){//orientation nord
@@ -103,3 +120,4 @@ void possibilite_case (s_node* arbre ) {
     //probleme avec les orientations 
 
 }
+*/

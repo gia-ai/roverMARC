@@ -6,6 +6,9 @@
 #define UNTITLED1_MAP_H
 
 #define COST_UNDEF 65535
+
+#include "loc.h"
+#include "queue.h"
 /**
  * @brief Enum for the possible soils of the map
  */
@@ -54,5 +57,6 @@ t_map createMapFromFile(char *);
  * @param map : the map to display
  */
 void displayMap(t_map);
-
+t_position getBaseStationPosition(t_map);
+void removeFalseCrevasses(t_map);
 #endif //UNTITLED1_MAP_H
