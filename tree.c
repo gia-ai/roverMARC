@@ -18,6 +18,7 @@ t_node* create_node(int x,int y,t_orientation orientation) {
         printf("Memory allocation error\n");
         return NULL;
     }
+// initialiser les coordonnées du node local = localisation et boucle pour les coordonnées des enfants
     node->local = loc_init(x,y, orientation);
     node->nb_enfant = 0;
     for (i = 0; i < 8; i++) {
@@ -33,6 +34,7 @@ t_tree* create_tree( int x , int y, t_orientation orientation) {
         printf("Memory allocation error\n");
         return NULL;
     }
+//Met l'adresse du premier noeud comme suivant de l'arbre
     tree->root = create_node(x, y, orientation);
     return tree;
 }
@@ -43,9 +45,11 @@ void add_node_to_tree(t_node* node,int x,int y, t_orientation orientation, int m
         printf("Memory allocation error\n");
         return;
     }
+    //Si le mouvement choisie fait partie des 8 actions, alors on implément un nouveau noeud
     if (mouvement > -1 && mouvement < 9) {
         node->enfant[mouvement] = new_node;
     }
+    //Définie les coordnonnées du nouveau noeud implémenté
     new_node->local = loc_init(x, y, orientation);
     new_node->parent = node;
 }
