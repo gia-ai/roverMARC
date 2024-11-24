@@ -4,16 +4,17 @@
 
 #include "tree.h"
 
-#include "moves.h"
-
 
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "queue.h"
+#include "moves.h"
+#include "map.h"
+
 
 t_node* create_node(int x,int y,t_orientation orientation) {
     t_node *node = (t_node*)malloc(sizeof(t_node));
-    int i;
     if (!node) {
         printf("Memory allocation error\n");
         return NULL;
@@ -21,7 +22,7 @@ t_node* create_node(int x,int y,t_orientation orientation) {
 // initialiser les coordonnées du node local = localisation et boucle pour les coordonnées des enfants
     node->local = loc_init(x,y, orientation);
     node->nb_enfant = 0;
-    for (i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++) {
         node->enfant[i] = NULL;
     }
     node->parent = NULL;
@@ -54,74 +55,75 @@ void add_node_to_tree(t_node* node,int x,int y, t_orientation orientation, int m
     new_node->parent = node;
 }
 
-/*
-void possibilite_case (s_node* arbre ) {
-    int temp=0;
-    if (arbre.orientation==NORTH){//orientation nord
-        if (is_valid_loc(arbre.x,arbre.y-1)){
-            arbre->avance10=create_node(arbre.x,arbre.y-1,arbre.orientation);//avance de 10
-        }
-        if (is_valid_loc(arbre.x,arbre.y-2)){
-            arbre->avance10=create_node(arbre.x,arbre.y-2,arbre.orientation);//avance de 20
-        }
-        if (is_valid_loc(arbre.x,arbre.y-3)){
-            arbre->avance10=create_node(arbre.x,arbre.y-3,arbre.orientation);//avance de 30
-        }
-        if (is_valid_loc(arbre.x,arbre.y+1)){
-            arbre->avance10=create_node(arbre.x,arbre.y+1,arbre.orientation);//recule de 10
+void free_node(t_node* node) {
+    if (node == NULL) {
+        return;
+    }
+    // Libérer tous les enfants
+    for (int i = 0; i < 7; i++) {
+        if (node->enfant[i] != NULL) {
+            free_node(node->enfant[i]);
         }
     }
-    if (arbre.orientation==SOUTH){//orientation sud 
-        if (is_valid_loc(arbre.x,arbre.y+1)){
-            arbre->avance10=create_node(arbre.x,arbre.y+1,arbre.orientation);//avance de 10
-        }
-        if (is_valid_loc(arbre.x,arbre.y+2)){
-            arbre->avance10=create_node(arbre.x,arbre.y+2,arbre.orientation);//avance de 20
-        }
-        if (is_valid_loc(arbre.x,arbre.y+3)){
-            arbre->avance10=create_node(arbre.x,arbre.y+3,arbre.orientation);//avance de 30
-        }
-        if (is_valid_loc(arbre.x,arbre.y-1)){
-            arbre->avance10=create_node(arbre.x,arbre.y-1,arbre.orientation);//recule de 10
-        }
-        
-    }
-    if (arbre.orientation==EAST){//orientation est
-        if (is_valid_loc(arbre.x+1,arbre.y)){
-            arbre->avance10=create_node(arbre.x+1,arbre.y,arbre.orientation);//avance de 10
-        }
-        if (is_valid_loc(arbre.x+2,arbre.y)){
-            arbre->avance10=create_node(arbre.x+2,arbre.y,arbre.orientation);//avance de 20
-        }
-        if (is_valid_loc(arbre.x+3,arbre.y)){
-            arbre->avance10=create_node(arbre.x+3,arbre.y,arbre.orientation);//avance de 30
-        }
-        if (is_valid_loc(arbre.x-1,arbre.y)){
-            arbre->avance10=create_node(arbre.x-1,arbre.y,arbre.orientation);//recule de 10
-        }
-        
-    }
-
-    if (arbre.orientation==WEST){//orientation ouest
-        if (is_valid_loc(arbre.x-1,arbre.y)){
-            arbre->avance10=create_node(arbre.x-1,arbre.y,arbre.orientation);//avance de 10
-        }
-        if (is_valid_loc(arbre.x-2,arbre.y)){
-            arbre->avance10=create_node(arbre.x-2,arbre.y,arbre.orientation);//avance de 20
-        }
-        if (is_valid_loc(arbre.x-3,arbre.y)){
-            arbre->avance10=create_node(arbre.x-3,arbre.y,arbre.orientation);//avance de 30
-        }
-        if (is_valid_loc(arbre.x+1,arbre.y)){
-            arbre->avance10=create_node(arbre.x+1,arbre.y,arbre.orientation);//recule de 10
-        }
-        
-    }
-    arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation-1%4);//tourne à gauche
-    arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation+1%4);//tourne à droite
-    arbre->avance10=create_node(arbre.x,arbre.y,arbre.orientation+2%4);//demi-tour
-
-    //probleme avec les orientations 
-
+    // Libérer le nœud lui-même
+    free(node);
 }
-*/
+void dfs(t_node* node, t_position base, t_map map) {
+    if (node == NULL) {
+        return; // Si l'arbre est vide (le nœud de départ est NULL), on quitte immédiatement.
+    }
+
+    // Création d'une file de capacité 100 pour gérer les nœuds à explorer.
+    t_node_queue queue = createQueue_node(1000);
+
+    // Ajout du nœud racine (point de départ) dans la file.
+    enqueue_node(&queue, node);
+
+    // Boucle principale : continue tant que la file n'est pas vide.
+    while (queue.first != queue.last) {
+        // Récupération du premier nœud de la file pour traitement.
+        t_node* current_node = dequeue_node(&queue);
+
+        // Affichage des coordonnées du nœud en cours de visite.
+        printf("Visit: (%d, %d)\n", current_node->local.pos.x, current_node->local.pos.y);
+
+        // Si le nœud courant correspond à la position de la base cible, on arrête la recherche.
+        if (current_node->local.pos.x == base.x && current_node->local.pos.y == base.y) {
+            printf("La base a ete atteinte en (%d,%d)\n", current_node->local.pos.x, current_node->local.pos.y);
+
+            // Nettoyage des ressources avant de quitter la fonction.
+            freeQueue_node(&queue);
+            free_node(node);
+            return;
+        }
+
+        // Définition de la liste des mouvements possibles depuis le nœud courant.
+        t_move movement[7] = {F_10, F_20, F_30, B_10, T_LEFT, T_RIGHT, U_TURN};
+
+        // Parcours de chaque mouvement possible.
+        for (int i = 0; i < 7; i++) {
+            // Calcul de la nouvelle localisation en appliquant le mouvement.
+            t_localisation localisation = move(current_node->local, movement[i]);
+            // Message de débogage pour confirmer que l'exécution avance correctement.
+            printf(" ca fonctionne ");
+            // Vérification :
+            // 1. Si le nœud enfant correspondant n'existe pas encore.
+            // 2. Si la localisation résultante est valide (dans les limites de la carte).
+            if (current_node->enfant[i] == NULL && isValidLocalisation(localisation.pos, map.x_max, map.y_max) == 1) {
+
+                // Création d'un nouveau nœud enfant pour cette localisation.
+                current_node->enfant[i] = create_node(localisation.pos.x, localisation.pos.y, localisation.ori);
+
+                // Mise à jour de la localisation de ce nœud enfant.
+                current_node->enfant[i]->local = localisation;
+
+                // Ajout du nœud enfant dans la file pour exploration future.
+                enqueue_node(&queue, current_node->enfant[i]);
+            }
+        }
+    }
+
+    // Nettoyage des ressources : libération de la file et de l'arbre.
+    freeQueue_node(&queue);
+    free_node(node);
+}

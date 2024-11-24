@@ -10,7 +10,7 @@
  * @brief Function to create a stack
  * @param size : the size of the stack
  * @return the stack
- */
+*/
 t_stack createStack(int size)
 {
     // the size of the stack must be positive
@@ -27,7 +27,7 @@ t_stack createStack(int size)
  * @param stack : the stack
  * @param value : the value to push
  * @return none
- */
+*/
 void push(t_stack *p_stack, int value)
 {
     // the stack must not be full
@@ -41,7 +41,7 @@ void push(t_stack *p_stack, int value)
  * @brief Function to pop a value from the stack
  * @param stack : the stack
  * @return the value popped
- */
+*/
 int pop(t_stack *p_stack)
 {
     // the stack must not be empty
@@ -54,10 +54,11 @@ int pop(t_stack *p_stack)
  * @brief Function to get the top value of the stack
  * @param stack : the stack
  * @return the top value
- */
+*/
 int top(t_stack stack)
 {
     // the stack must not be empty
     assert(stack.nbElts > 0);
     return stack.values[stack.nbElts - 1];
+
 }

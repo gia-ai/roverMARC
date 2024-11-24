@@ -31,17 +31,34 @@ int main() {
     displayMap(map);
 
     t_position base = getBaseStationPosition(map);
-    printf("Base station position is at (%d, %d)\n", base.x, base.y);
-    t_tree* arbre = create_tree(0, 0, SOUTH);
+    if (isValidLocalisation(base, map.x_max, map.y_max) == 1) {
+        printf("Base station position is at (%d, %d)\n", base.x, base.y);
+    }
+    int val = 0;
+    t_orientation ori = SOUTH;
+
+
+    //Initalisation de l'arbre et du premier noeud
     t_node* node = create_node(0,0,SOUTH);
-    printf("Marc position is at (%d.%d)", node->local.pos.x, node->local.pos.y);
+
+    printf("Marc position is at (%d,%d)\n", node->local.pos.x, node->local.pos.y);
+    val = isValidLocalisation(node->local.pos, map.x_max, map.y_max);
+    printf("%d\n", val);
+
+    dfs(node, base, map);
+/*
     while (node->local.pos.x != base.x || node->local.pos.y != base.y) {
         // Code pour continuer la recherche
-        for (int i = 0; i < 8; i++) {
-            if (node->enfant != NULL) {
-                node->enfant[i] = create_node(node->local.pos.x, node->local.pos.y,node->local.ori);
-            }
+        t_move movement [7] = {F_10,F_20,F_30,B_10,T_LEFT,T_RIGHT,U_TURN};
+        for (int i = 0; i < 7; i++) {
+        t_node* new_node = create_node(node->local.pos.x, node->local.pos.y, node->local.ori);
+            node->enfant[i] = new_node;
+
+        node->enfant[i]->local = move(node->enfant[i]->local,movement[i]);
+            printf("Marc position is at (%d,%d)\n", node->enfant[i]->local.pos.x, node->enfant[i]->local.pos.y);
         }
+
     }
+    printf("Marc position is at (%d,%d)\n", node->local.pos.x,node->local.pos.y);*/
     return 0;
 }
