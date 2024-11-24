@@ -100,26 +100,24 @@ void dfs(t_node* node, t_position base, t_map map) {
         // Définition de la liste des mouvements possibles depuis le nœud courant.
         t_move movement[7] = {F_10, F_20, F_30, B_10, T_LEFT, T_RIGHT, U_TURN};
 
+
         // Parcours de chaque mouvement possible.
         for (int i = 0; i < 7; i++) {
             // Calcul de la nouvelle localisation en appliquant le mouvement.
             t_localisation localisation = move(current_node->local, movement[i]);
-            // Message de débogage pour confirmer que l'exécution avance correctement.
-            printf(" ca fonctionne ");
             // Vérification :
             // 1. Si le nœud enfant correspondant n'existe pas encore.
             // 2. Si la localisation résultante est valide (dans les limites de la carte).
             if (current_node->enfant[i] == NULL && isValidLocalisation(localisation.pos, map.x_max, map.y_max) == 1) {
-
                 // Création d'un nouveau nœud enfant pour cette localisation.
                 current_node->enfant[i] = create_node(localisation.pos.x, localisation.pos.y, localisation.ori);
 
-                // Mise à jour de la localisation de ce nœud enfant.
-                current_node->enfant[i]->local = localisation;
-
+                printf("Visit: (%d, %d)\n", current_node->enfant[i]->local.pos.x, current_node->enfant[i]->local.pos.y);
                 // Ajout du nœud enfant dans la file pour exploration future.
                 enqueue_node(&queue, current_node->enfant[i]);
             }
+            // Message de débogage pour confirmer que l'exécution avance correctement.
+            printf(" ca fonctionne ");
         }
     }
 
